@@ -33,7 +33,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development to implement this plan via GitHub Issues.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -96,21 +96,45 @@ git commit -m "feat: add specific feature"
 
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+After saving the plan, create GitHub Issues and begin implementation.
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+**"Plan complete and saved to `docs/plans/<filename>.md`. Creating GitHub issues now."**
 
-**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
+### Step 1: Create GitHub Issues
 
-**2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints
+Map plan tasks to GitHub issues. **Scope issues by functionality**, not by subagent capacity. The implementation skill will decide how many subagents each issue needs — your job is to define *what* to build, not *how* to subdivide it for agents.
 
-**Which approach?"**
+**Issue scoping guidance:**
 
-**If Subagent-Driven chosen:**
+Each issue should represent a coherent unit of functionality that makes sense on its own.
+
+*When to keep tasks in one issue:*
+- They contribute to the same user-facing feature or behavior
+- They're tightly coupled and would be awkward to review separately
+- Splitting would create merge conflicts between subagents
+- Small changes should naturally result in just one issue — that's the normal case, not a sign you need to split further
+
+*When to split into separate issues:*
+- Tasks represent genuinely distinct features or concerns (e.g., "offline caching" vs. "push notifications")
+- Issues with dependencies are fine — note the order (e.g., "Depends on #142") so they execute sequentially
+
+*General principles:*
+- For compiled projects (iOS/Xcode, Rust, Java, etc.) where builds take meaningful time, prefer fewer issues
+- Each issue must be self-contained: include everything needed to implement it without reading the plan file
+- Don't pre-optimize issue size for subagent context limits — the implementation skill handles that
+
+**Creating issues:**
+- Use `gh issue create` for each issue
+- **Apply a shared label** to all issues from this plan (e.g., `offline-caching`, `auth-refactor`) — the implementation skill uses this label to fetch the full set via `gh issue list --label <label>`
+- Include full implementation context, relevant file paths, and code snippets from the plan
+- Include acceptance criteria so the implementing subagent knows when it's done
+- Include the TDD micro-steps from the plan: which tests to write, expected failures, implementation approach
+- Use additional label(s) to categorize (e.g., `enhancement`, `bug`, `refactor`)
+- If creating multiple issues, note dependencies between them in each issue body
+
+### Step 2: Implement
+
 - **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
-- Stay in this session
-- Fresh subagent per task + code review
-
-**If Parallel Session chosen:**
-- Guide them to open new session in worktree
-- **REQUIRED SUB-SKILL:** New session uses superpowers:executing-plans
+- Implementation skill reads each issue and decides subagent count based on complexity
+- Two-stage review (spec compliance → code quality) after each issue
+- Subagent commits reference the issue number (e.g., `feat: add caching layer (#142)`)

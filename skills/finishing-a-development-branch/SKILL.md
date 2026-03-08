@@ -97,11 +97,16 @@ gh pr create --title "<title>" --body "$(cat <<'EOF'
 ## Summary
 <2-3 bullets of what changed>
 
+<If GitHub issues were implemented, add for each issue:>
+Closes #<issue-number>
+
 ## Test Plan
 - [ ] <verification steps>
 EOF
 )"
 ```
+
+**GitHub Issues mode:** When this skill is called after subagent-driven-development in GitHub Issues mode, the PR body MUST include `Closes #<number>` for every issue that was implemented. This auto-closes the issues when the PR merges. List them individually (one per line) so GitHub links each one.
 
 Then: Cleanup worktree (Step 5)
 
