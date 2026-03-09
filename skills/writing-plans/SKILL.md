@@ -132,7 +132,11 @@ Each issue should represent a coherent unit of functionality that makes sense on
 - Use additional label(s) to categorize (e.g., `enhancement`, `bug`, `refactor`)
 - If creating multiple issues, note dependencies between them in each issue body
 
-### Step 2: Implement
+### Step 2: Set Up Worktree
+
+If not already in a worktree, use **superpowers:using-git-worktrees** to create an isolated workspace before implementation.
+
+### Step 3: Implement
 
 - **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
 - Implementation skill reads each issue and decides subagent count based on complexity

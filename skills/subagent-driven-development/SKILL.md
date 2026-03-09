@@ -1,6 +1,6 @@
 ---
 name: subagent-driven-development
-description: Use when executing implementation plans with independent tasks in the current session
+description: Use when implementing GitHub Issues — reads each issue, assesses complexity, dispatches implementer subagents with two-stage review
 ---
 
 # Subagent-Driven Development
@@ -8,6 +8,8 @@ description: Use when executing implementation plans with independent tasks in t
 Execute plan by dispatching implementer subagents per GitHub issue, with two-stage review after each: spec compliance review first, then code quality review.
 
 **Core principle:** Issues scoped by functionality + adaptive subagent count + two-stage review = high quality, right-sized effort
+
+**Announce at start:** "I'm using the subagent-driven-development skill to implement the GitHub issues."
 
 ## How It Works
 
@@ -20,90 +22,19 @@ The two-stage review (spec compliance → code quality) runs once per issue afte
 
 ## When to Use
 
-```dot
-digraph when_to_use {
-    "GitHub issues created?" [shape=diamond];
-    "Stay in this session?" [shape=diamond];
-    "subagent-driven-development" [shape=box];
-    "executing-plans" [shape=box];
-    "Create issues first (use writing-plans)" [shape=box];
+**Prerequisites:** GitHub issues must exist before using this skill. If they don't, use `writing-plans` first.
 
-    "GitHub issues created?" -> "Stay in this session?" [label="yes"];
-    "GitHub issues created?" -> "Create issues first (use writing-plans)" [label="no"];
-    "Stay in this session?" -> "subagent-driven-development" [label="yes"];
-    "Stay in this session?" -> "executing-plans" [label="no - parallel session"];
-}
-```
-
-**vs. Executing Plans (parallel session):**
-- Same session (no context switch)
-- Fresh subagent per issue or sub-task (no context pollution)
-- Two-stage review after each issue: spec compliance first, then code quality
-- Faster iteration (no human-in-loop between issues)
+**vs. executing-plans (upstream alternative):**
+- `subagent-driven-development`: GitHub Issues workflow, adaptive subagent count, two-stage review, same session
+- `executing-plans`: Plan-file workflow, batch execution with human checkpoints, separate session
 
 ## The Process
 
-```dot
-digraph process {
-    rankdir=TB;
-
-    "Fetch GitHub issues, create TodoWrite" [shape=box];
-
-    subgraph cluster_per_issue {
-        label="Per Issue";
-        "Read issue, assess complexity" [shape=box];
-        "Simple or complex?" [shape=diamond];
-
-        subgraph cluster_simple {
-            label="Simple (1 subagent)";
-            style=dashed;
-            "Dispatch single implementer subagent" [shape=box];
-        }
-
-        subgraph cluster_complex {
-            label="Complex (multiple subagents)";
-            style=dashed;
-            "Break into sub-tasks by architectural boundary" [shape=box];
-            "Dispatch subagent for sub-task N" [shape=box];
-            "More sub-tasks?" [shape=diamond];
-        }
-
-        "Dispatch spec reviewer subagent" [shape=box];
-        "Spec reviewer confirms code matches acceptance criteria?" [shape=diamond];
-        "Dispatch fix subagent for spec gaps" [shape=box];
-        "Dispatch code quality reviewer subagent" [shape=box];
-        "Code quality reviewer approves?" [shape=diamond];
-        "Dispatch fix subagent for quality issues" [shape=box];
-        "Mark issue complete" [shape=box];
-    }
-
-    "More issues remain?" [shape=diamond];
-    "Dispatch final code reviewer for entire implementation" [shape=box];
-    "Use superpowers:finishing-a-development-branch" [shape=box style=filled fillcolor=lightgreen];
-
-    "Fetch GitHub issues, create TodoWrite" -> "Read issue, assess complexity";
-    "Read issue, assess complexity" -> "Simple or complex?";
-    "Simple or complex?" -> "Dispatch single implementer subagent" [label="simple"];
-    "Simple or complex?" -> "Break into sub-tasks by architectural boundary" [label="complex"];
-    "Break into sub-tasks by architectural boundary" -> "Dispatch subagent for sub-task N";
-    "Dispatch subagent for sub-task N" -> "More sub-tasks?";
-    "More sub-tasks?" -> "Dispatch subagent for sub-task N" [label="yes"];
-    "More sub-tasks?" -> "Dispatch spec reviewer subagent" [label="no"];
-    "Dispatch single implementer subagent" -> "Dispatch spec reviewer subagent";
-    "Dispatch spec reviewer subagent" -> "Spec reviewer confirms code matches acceptance criteria?";
-    "Spec reviewer confirms code matches acceptance criteria?" -> "Dispatch fix subagent for spec gaps" [label="no"];
-    "Dispatch fix subagent for spec gaps" -> "Dispatch spec reviewer subagent" [label="re-review"];
-    "Spec reviewer confirms code matches acceptance criteria?" -> "Dispatch code quality reviewer subagent" [label="yes"];
-    "Dispatch code quality reviewer subagent" -> "Code quality reviewer approves?";
-    "Code quality reviewer approves?" -> "Dispatch fix subagent for quality issues" [label="no"];
-    "Dispatch fix subagent for quality issues" -> "Dispatch code quality reviewer subagent" [label="re-review"];
-    "Code quality reviewer approves?" -> "Mark issue complete" [label="yes"];
-    "Mark issue complete" -> "More issues remain?";
-    "More issues remain?" -> "Read issue, assess complexity" [label="yes"];
-    "More issues remain?" -> "Dispatch final code reviewer for entire implementation" [label="no"];
-    "Dispatch final code reviewer for entire implementation" -> "Use superpowers:finishing-a-development-branch";
-}
-```
+**Process summary:**
+1. Fetch issues → create TodoWrite
+2. Per issue: read → assess complexity → dispatch 1 or more implementer subagents
+3. Per issue: spec review (loop until ✅) → code quality review (loop until ✅) → mark complete
+4. After all issues: final code review → `finishing-a-development-branch`
 
 ## Setup
 
@@ -348,5 +279,5 @@ Done!
 **Subagents should use:**
 - **superpowers:test-driven-development** - Subagents follow TDD for each issue/sub-task
 
-**Alternative workflow:**
-- **superpowers:executing-plans** - Use for parallel session instead of same-session execution
+**Alternative workflow (upstream, plan-file based):**
+- **superpowers:executing-plans** - Batch execution from plan files in a separate session (does not use GitHub Issues)
