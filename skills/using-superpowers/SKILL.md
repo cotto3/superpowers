@@ -1,6 +1,6 @@
 ---
 name: using-superpowers
-description: Use at conversation start to establish skill invocation rules
+description: Applies the repo's skill-selection rules before work begins. Use at the start of a session or new task before answering questions or taking action.
 ---
 
 ## The Rule

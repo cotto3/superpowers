@@ -1,6 +1,6 @@
 ---
 name: test-driven-development
-description: Use when implementing any feature or bugfix, before writing implementation code
+description: Implements changes through a red-green-refactor cycle. Use when building a feature, fixing a bug, refactoring behavior, or otherwise writing production code.
 ---
 
 # Test-Driven Development (TDD)

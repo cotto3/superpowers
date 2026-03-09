@@ -1,6 +1,6 @@
 ---
 name: receiving-code-review
-description: Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
+description: Evaluates review feedback rigorously before changes are made. Use when receiving code review comments, especially if feedback is unclear, risky, or technically questionable.
 ---
 
 # Code Review Reception

@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+description: "Develops an approved design before implementation. Use when starting a feature, behavior change, or other creative work that should be clarified before code is written."
 ---
 
 # Brainstorming Ideas Into Designs
@@ -79,7 +79,7 @@ digraph brainstorming {
 
 **Documentation:**
 - Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-- Use elements-of-style:writing-clearly-and-concisely skill if available
+- Tighten the wording for clarity before committing the design document
 - Commit the design document to git
 
 **Implementation:**

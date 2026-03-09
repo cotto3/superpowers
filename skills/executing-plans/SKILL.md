@@ -1,6 +1,6 @@
 ---
 name: executing-plans
-description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
+description: Executes an existing implementation plan in batches with review checkpoints. Use when a written plan should be carried out in a separate session instead of the GitHub-issues workflow.
 ---
 
 # Executing Plans

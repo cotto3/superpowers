@@ -1,6 +1,6 @@
 ---
 name: subagent-driven-development
-description: Use when GitHub issues already exist for a planned change and they should be implemented in the current session with subagents instead of the separate-session executing-plans workflow
+description: Implements planned GitHub issues with subagents and two-stage review. Use when GitHub issues already exist for a planned change and the work should happen in the current session instead of executing-plans.
 ---
 
 # Subagent-Driven Development

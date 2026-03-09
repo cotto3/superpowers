@@ -1,6 +1,6 @@
 ---
 name: writing-plans
-description: Use when you have a spec or requirements for a multi-step task, before touching code
+description: Turns approved requirements into a bite-sized implementation plan and GitHub issues. Use after brainstorming or whenever a multi-step change needs planned execution before code is touched.
 ---
 
 # Writing Plans

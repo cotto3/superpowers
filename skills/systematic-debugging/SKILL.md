@@ -1,6 +1,6 @@
 ---
 name: systematic-debugging
-description: Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
+description: Investigates bugs methodically to find root cause before fixing them. Use when encountering a bug, test failure, build failure, or other unexpected technical behavior.
 ---
 
 # Systematic Debugging
@@ -282,6 +282,8 @@ These techniques are part of systematic debugging and available in this director
 - **`root-cause-tracing.md`** - Trace bugs backward through call stack to find original trigger
 - **`defense-in-depth.md`** - Add validation at multiple layers after finding root cause
 - **`condition-based-waiting.md`** - Replace arbitrary timeouts with condition polling
+- **`condition-based-waiting-example.ts`** - Adapt a concrete polling example when rewriting flaky waits
+- **`find-polluter.sh`** - Isolate order-dependent test pollution by narrowing the failing test set
 
 **Related skills:**
 - **superpowers:test-driven-development** - For creating failing test case (Phase 4, Step 1)
