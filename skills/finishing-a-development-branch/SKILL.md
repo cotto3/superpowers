@@ -175,7 +175,7 @@ git worktree remove <worktree-path>
 
 **Automatic worktree cleanup**
 - **Problem:** Remove worktree when might need it (Option 2, 3)
-- **Fix:** Only cleanup for Options 1 and 4
+- **Fix:** Only keep the worktree for Option 3. Clean up for Options 1, 2, and 4.
 
 **No confirmation for discard**
 - **Problem:** Accidentally delete work
@@ -193,12 +193,12 @@ git worktree remove <worktree-path>
 - Verify tests before offering options
 - Present exactly 4 options
 - Get typed confirmation for Option 4
-- Clean up worktree for Options 1 & 4 only
+- Clean up worktree for Options 1, 2, and 4
 
 ## Integration
 
 **Called by:**
-- **subagent-driven-development** (Step 7) - After all tasks complete
+- **subagent-driven-development** (finishing step) - After all issues complete
 - **executing-plans** (Step 5) - After all batches complete
 
 **Pairs with:**

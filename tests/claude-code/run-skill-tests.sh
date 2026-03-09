@@ -5,6 +5,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
+source "$SCRIPT_DIR/test-helpers.sh"
 
 echo "========================================"
 echo " Claude Code Skills Test Suite"
@@ -57,10 +58,11 @@ while [[ $# -gt 0 ]]; do
             echo "  --help, -h           Show this help"
             echo ""
             echo "Tests:"
-            echo "  test-subagent-driven-development.sh  Test skill loading and requirements"
+            echo "  test-customized-workflow-contracts.sh      Static contract checks for fork-specific workflow"
+            echo "  test-subagent-driven-development.sh  Test issue-driven skill loading and requirements"
             echo ""
             echo "Integration Tests (use --integration):"
-            echo "  test-subagent-driven-development-integration.sh  Full workflow execution"
+            echo "  test-subagent-driven-development-integration.sh  Full issue-driven workflow execution"
             exit 0
             ;;
         *)
@@ -73,6 +75,7 @@ done
 
 # List of skill tests to run (fast unit tests)
 tests=(
+    "test-customized-workflow-contracts.sh"
     "test-subagent-driven-development.sh"
 )
 
@@ -118,7 +121,7 @@ for test in "${tests[@]}"; do
     start_time=$(date +%s)
 
     if [ "$VERBOSE" = true ]; then
-        if timeout "$TIMEOUT" bash "$test_path"; then
+        if run_with_timeout "$TIMEOUT" bash "$test_path"; then
             end_time=$(date +%s)
             duration=$((end_time - start_time))
             echo ""
@@ -138,7 +141,7 @@ for test in "${tests[@]}"; do
         fi
     else
         # Capture output for non-verbose mode
-        if output=$(timeout "$TIMEOUT" bash "$test_path" 2>&1); then
+        if output=$(run_with_timeout "$TIMEOUT" bash "$test_path" 2>&1); then
             end_time=$(date +%s)
             duration=$((end_time - start_time))
             echo "  [PASS] (${duration}s)"

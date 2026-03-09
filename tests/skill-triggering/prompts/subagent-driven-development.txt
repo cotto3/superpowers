@@ -1,0 +1,3 @@
+I already used planning to create GitHub issues for this feature under the shared label `math-workflow`.
+
+Please implement those issues in this session with the normal implementation workflow, not by handing the work off to a separate session.

@@ -209,9 +209,9 @@ Ready to implement auth feature
 ## Integration
 
 **Called by:**
-- **brainstorming** (Phase 4) - REQUIRED when design is approved and implementation follows
-- **subagent-driven-development** - REQUIRED before executing any tasks
-- **executing-plans** - REQUIRED before executing any tasks
+- **writing-plans** (execution handoff) - REQUIRED before implementing the GitHub issues it just created
+- **subagent-driven-development** - REQUIRED before executing any issue work if not already in a worktree
+- **executing-plans** - REQUIRED before executing any plan batches
 - Any skill needing isolated workspace
 
 **Pairs with:**

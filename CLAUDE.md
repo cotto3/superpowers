@@ -7,7 +7,7 @@ This is a fork of [obra/superpowers](https://github.com/obra/superpowers) with G
 ### Workflow chain (customized)
 
 ```
-brainstorming → writing-plans → subagent-driven-development → finishing-a-development-branch
+brainstorming → writing-plans → using-git-worktrees → subagent-driven-development → finishing-a-development-branch
 ```
 
 | Skill | Purpose | Customized? |
@@ -15,14 +15,14 @@ brainstorming → writing-plans → subagent-driven-development → finishing-a-
 | `using-superpowers` | Session-start meta-skill: enforce "check for skills before acting" | Yes (slimmed ~80%) |
 | `brainstorming` | Collaborative design before implementation. Produces a design doc, then invokes `writing-plans` | No |
 | `writing-plans` | Turn design into bite-sized TDD plan, create GitHub Issues, hand off to implementation | Yes (unified handoff) |
+| `using-git-worktrees` | Create isolated workspace after planning and before implementation begins | Yes (workflow integration updated) |
 | `subagent-driven-development` | Implement GitHub Issues: assess complexity, dispatch 1+ implementer subagents, two-stage review | Yes (rewritten) |
 | `finishing-a-development-branch` | Verify tests → present merge/PR/keep/discard options → clean up worktree | Yes (added `Closes #N`) |
 
-### Supporting skills (unmodified from upstream)
+### Supporting skills
 
 | Skill | Purpose |
 |-------|---------|
-| `using-git-worktrees` | Create isolated workspace before implementation |
 | `test-driven-development` | Red-green-refactor discipline for implementer subagents |
 | `verification-before-completion` | Evidence before claims — run commands before asserting success |
 | `requesting-code-review` | Dispatch code reviewer subagent with diff context |
@@ -55,6 +55,11 @@ brainstorming → writing-plans → subagent-driven-development → finishing-a-
 - Fix subagents resolve issues without re-introducing regressions
 - All commits reference issue numbers
 
+**`using-git-worktrees` is effective when:**
+- Worktree setup happens after planning and before implementation begins
+- The isolated workspace starts from a clean, verified baseline
+- Implementation never starts on `main` by accident
+
 **`finishing-a-development-branch` is effective when:**
 - PR body includes `Closes #N` for every implemented issue
 - Tests are verified before presenting options
@@ -65,22 +70,27 @@ brainstorming → writing-plans → subagent-driven-development → finishing-a-
 
 ## Design
 
-**Unified workflow:** plan → GitHub Issues (scoped by functionality) → adaptive subagent implementation → two-stage review → PR
+**Primary workflow:** design → plan → GitHub Issues (scoped by functionality) → worktree setup → adaptive subagent implementation → two-stage review → PR
 
 **Key design decisions:**
 - **Issues scoped by functionality, not subagent capacity.** `writing-plans` defines *what* to build. `subagent-driven-development` decides *how many subagents* each issue needs.
 - **Adaptive subagent count.** Simple issues get 1 subagent. Complex issues (spanning multiple layers) get broken into sequential sub-tasks, each with a fresh subagent. The complexity assessment happens at implementation time, not planning time.
 - **Two-stage review runs once per issue** (not per sub-task). Spec compliance first, then code quality.
+- **Worktree setup happens after planning, before code changes.** `brainstorming` still hands off directly to `writing-plans`; implementation only begins once `using-git-worktrees` has prepared an isolated branch/worktree.
+
+**Alternative workflow:** `executing-plans` remains available for the upstream plan-file flow in a separate session, but it is not the default path for the customized GitHub-issues workflow.
 
 ## What Was Customized
 
 Files modified from upstream:
 
 - `skills/writing-plans/SKILL.md` — replaced 3-option execution handoff with single flow: plan → create GitHub issues → implement. Issue sizing is purely functionality-based; implementation decides subagent count.
-- `skills/subagent-driven-development/SKILL.md` — removed upstream plan-file-based mode. Unified around GitHub Issues with adaptive subagent count: reads each issue, assesses complexity, dispatches 1 or multiple subagents accordingly. Two-stage review per issue, commits reference issue numbers, PR body includes `Closes #N`.
+- `skills/using-git-worktrees/SKILL.md` — updated integration guidance so worktree setup happens after planning and before either issue-based or plan-file implementation.
+- `skills/subagent-driven-development/SKILL.md` — removed upstream plan-file-based mode from the default path. Unified around GitHub Issues with adaptive subagent count: reads each issue, assesses complexity, dispatches 1 or multiple subagents accordingly. Two-stage review per issue, commits reference issue numbers, PR body includes `Closes #N`.
 - `skills/subagent-driven-development/implementer-from-issue-prompt.md` — new prompt template for issue-aware implementer subagents (replaces `implementer-prompt.md` usage)
 - `skills/subagent-driven-development/spec-reviewer-prompt.md` — adapted for GitHub issue numbers and acceptance criteria
 - `skills/subagent-driven-development/code-quality-reviewer-prompt.md` — adapted for GitHub issue references
+- `skills/requesting-code-review/SKILL.md` — aligned supporting review guidance with once-per-issue review in `subagent-driven-development`
 - `skills/finishing-a-development-branch/SKILL.md` — Option 2 (Create PR) now includes `Closes #N` for each implemented issue
 - `skills/using-superpowers/SKILL.md` — slimmed from ~1,200 to ~250 tokens; removed redundant rationalization table, unrenderable Graphviz diagram, and triple-repeated core message
 

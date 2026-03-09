@@ -1,6 +1,6 @@
 ---
 name: requesting-code-review
-description: Use when completing tasks, implementing major features, or before merging to verify work meets requirements
+description: Use when an implementation batch or GitHub issue is complete and you need code-quality review before continuing or merging
 ---
 
 # Requesting Code Review
@@ -12,7 +12,7 @@ Dispatch superpowers:code-reviewer subagent to catch issues before they cascade.
 ## When to Request Review
 
 **Mandatory:**
-- After each task in subagent-driven development
+- After implementation is complete for an issue in subagent-driven development, once spec compliance review has already passed
 - After completing major feature
 - Before merge to main
 
@@ -49,37 +49,37 @@ Use Task tool with superpowers:code-reviewer type, fill template at `code-review
 ## Example
 
 ```
-[Just completed Task 2: Add verification function]
+[Issue #142 implementation is complete and spec compliance review passed]
 
-You: Let me request code review before proceeding.
+You: Let me request code quality review before I move to the next issue.
 
-BASE_SHA=$(git log --oneline | grep "Task 1" | head -1 | awk '{print $1}')
+BASE_SHA=$(git merge-base HEAD origin/main)
 HEAD_SHA=$(git rev-parse HEAD)
 
 [Dispatch superpowers:code-reviewer subagent]
-  WHAT_WAS_IMPLEMENTED: Verification and repair functions for conversation index
-  PLAN_OR_REQUIREMENTS: Task 2 from docs/plans/deployment-plan.md
+  WHAT_WAS_IMPLEMENTED: Offline caching and sync queue support for Issue #142
+  PLAN_OR_REQUIREMENTS: GitHub Issue #142 acceptance criteria plus the approved spec-review result
   BASE_SHA: a7981ec
   HEAD_SHA: 3df7661
-  DESCRIPTION: Added verifyIndex() and repairIndex() with 4 issue types
+  DESCRIPTION: Finished Issue #142 after spec compliance review passed
 
 [Subagent returns]:
   Strengths: Clean architecture, real tests
   Issues:
-    Important: Missing progress indicators
-    Minor: Magic number (100) for reporting interval
-  Assessment: Ready to proceed
+    Important: Sync queue retry backoff is duplicated in two files
+    Minor: One helper name is vague
+  Assessment: Fix important issue before continuing
 
-You: [Fix progress indicators]
-[Continue to Task 3]
+You: [Fix retry backoff duplication]
+[Re-request code review]
 ```
 
 ## Integration with Workflows
 
 **Subagent-Driven Development:**
-- Review after EACH task
-- Catch issues before they compound
-- Fix before moving to next task
+- Review once per issue, after implementation is complete and spec compliance has already passed
+- Catch code quality issues before moving to the next issue
+- Fix reviewer findings, then re-review before continuing
 
 **Executing Plans:**
 - Review after each batch (3 tasks)

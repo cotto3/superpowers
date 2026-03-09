@@ -5,7 +5,31 @@
 # Tests whether Claude triggers a skill based on a natural prompt
 # (without explicitly mentioning the skill)
 
-set -e
+set -euo pipefail
+
+run_with_timeout() {
+    local timeout_seconds="$1"
+    shift
+
+    if command -v timeout >/dev/null 2>&1; then
+        timeout "$timeout_seconds" "$@"
+        return $?
+    fi
+
+    if command -v gtimeout >/dev/null 2>&1; then
+        gtimeout "$timeout_seconds" "$@"
+        return $?
+    fi
+
+    python3 -c 'import subprocess, sys
+timeout_seconds = int(sys.argv[1])
+cmd = sys.argv[2:]
+try:
+    completed = subprocess.run(cmd, timeout=timeout_seconds)
+except subprocess.TimeoutExpired:
+    sys.exit(124)
+sys.exit(completed.returncode)' "$timeout_seconds" "$@"
+}
 
 SKILL_NAME="$1"
 PROMPT_FILE="$2"
@@ -41,25 +65,28 @@ cp "$PROMPT_FILE" "$OUTPUT_DIR/prompt.txt"
 
 # Run Claude
 LOG_FILE="$OUTPUT_DIR/claude-output.json"
-cd "$OUTPUT_DIR"
 
 echo "Plugin dir: $PLUGIN_DIR"
 echo "Running claude -p with naive prompt..."
-timeout 300 claude -p "$PROMPT" \
-    --plugin-dir "$PLUGIN_DIR" \
-    --dangerously-skip-permissions \
-    --max-turns "$MAX_TURNS" \
-    --output-format stream-json \
-    > "$LOG_FILE" 2>&1 || true
+(
+    cd "$PLUGIN_DIR"
+    run_with_timeout 300 claude -p "$PROMPT" \
+        --plugin-dir "$PLUGIN_DIR" \
+        --dangerously-skip-permissions \
+        --max-turns "$MAX_TURNS" \
+        --output-format stream-json \
+        --verbose \
+        > "$LOG_FILE" 2>&1
+) || true
 
 echo ""
 echo "=== Results ==="
 
-# Check if skill was triggered (look for Skill tool invocation)
-# In stream-json, tool invocations have "name":"Skill" (not "tool":"Skill")
-# Match either "skill":"skillname" or "skill":"namespace:skillname"
+# Check if skill was triggered.
+# Newer Claude Code builds may either invoke the Skill tool or directly read the skill file.
 SKILL_PATTERN='"skill":"([^"]*:)?'"${SKILL_NAME}"'"'
-if grep -q '"name":"Skill"' "$LOG_FILE" && grep -qE "$SKILL_PATTERN" "$LOG_FILE"; then
+SKILL_FILE_PATTERN='skills/'"${SKILL_NAME}"'/SKILL\.md'
+if { grep -q '"name":"Skill"' "$LOG_FILE" && grep -qE "$SKILL_PATTERN" "$LOG_FILE"; } || grep -qE "$SKILL_FILE_PATTERN" "$LOG_FILE"; then
     echo "✅ PASS: Skill '$SKILL_NAME' was triggered"
     TRIGGERED=true
 else
