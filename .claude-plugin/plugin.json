@@ -1,19 +1,9 @@
 {
   "name": "ottopowers-gh",
   "description": "Core skills library for Claude Code and Codex: TDD, debugging, collaboration patterns, and proven techniques",
-  "version": "4.3.8",
+  "version": "4.3.9",
   "author": {
     "name": "Christian Otto",
     "url": "https://github.com/cotto3"
-  },
-  "contributors": [
-    {
-      "name": "Jesse Vincent",
-      "url": "https://github.com/obra"
-    }
-  ],
-  "homepage": "https://github.com/cotto3/superpowers",
-  "repository": "https://github.com/cotto3/superpowers",
-  "license": "MIT",
-  "keywords": ["skills", "tdd", "debugging", "collaboration", "best-practices", "workflows"]
+  }
 }
