@@ -1,6 +1,6 @@
 ---
 name: subagent-driven-development
-description: Use when implementing GitHub Issues — reads each issue, assesses complexity, dispatches implementer subagents with two-stage review
+description: Use when GitHub issues already exist for a planned change and they should be implemented in the current session with subagents instead of the separate-session executing-plans workflow
 ---
 
 # Subagent-Driven Development
@@ -31,16 +31,17 @@ The two-stage review (spec compliance → code quality) runs once per issue afte
 ## The Process
 
 **Process summary:**
-1. Fetch issues → create TodoWrite
+1. Verify isolated workspace → fetch issues → create TodoWrite
 2. Per issue: read → assess complexity → dispatch 1 or more implementer subagents
 3. Per issue: spec review (loop until ✅) → code quality review (loop until ✅) → mark complete
 4. After all issues: final code review → `finishing-a-development-branch`
 
 ## Setup
 
-1. Fetch all open issues for implementation: `gh issue list --label <label> --state open --json number,title,body` — the label was set by the writing-plans skill when creating issues (e.g., `offline-caching`). If you don't know the label, ask the user or check recently created issues.
-2. Order by dependency (if noted in issue bodies), otherwise by issue number
-3. Create TodoWrite with one entry per issue
+1. If not already in an isolated workspace, use **superpowers:using-git-worktrees** before making code changes. Do not start implementation directly on `main`/`master` unless the user explicitly wants that.
+2. Fetch all open issues for implementation: `gh issue list --label <label> --state open --json number,title,body` — the label was set by the writing-plans skill when creating issues (e.g., `offline-caching`). If you don't know the label, ask the user or check recently created issues.
+3. Order by dependency (if noted in issue bodies), otherwise by issue number
+4. Create TodoWrite with one entry per issue
 
 ## Per Issue
 
@@ -218,7 +219,7 @@ Done!
 - Review checkpoints automatic
 
 **Efficiency gains:**
-- Controller reads issue and provides full text to subagent
+- Controller provides the full issue body plus acceptance criteria directly to the subagent
 - Subagent gets complete information upfront
 - Questions surfaced before work begins (not after)
 - Simple issues get 1 subagent (no overhead), complex issues get multiple (no overwhelm)

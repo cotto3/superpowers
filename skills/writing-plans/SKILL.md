@@ -13,7 +13,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-**Context:** This should be run in a dedicated worktree (created by brainstorming skill).
+**Context:** Planning can happen in the current workspace. Create or switch to a dedicated worktree before implementation begins.
 
 **Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
 
@@ -99,6 +99,8 @@ git commit -m "feat: add specific feature"
 After saving the plan, create GitHub Issues and begin implementation.
 
 **"Plan complete and saved to `docs/plans/<filename>.md`. Creating GitHub issues now."**
+
+This is the default workflow for the customized GitHub Issues path. `executing-plans` remains available as the upstream plan-file alternative when the user explicitly wants a separate-session execution flow.
 
 ### Step 1: Create GitHub Issues
 
