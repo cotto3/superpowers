@@ -1,6 +1,6 @@
 # Description Guidance
 
-Descriptions are the primary trigger surface for a skill. They should help Codex decide whether to load the skill, not replace the skill body.
+Descriptions are the primary trigger surface for a skill. They should help the agent decide whether to load the skill, not replace the skill body.
 
 ## Recommended pattern
 
@@ -47,7 +47,7 @@ description: Handles React Router authentication redirect flows. Use when routin
 
 ## Keyword coverage
 
-Add the terms Codex would plausibly search for:
+Add the terms the agent would plausibly search for:
 - error messages
 - symptoms
 - tool names

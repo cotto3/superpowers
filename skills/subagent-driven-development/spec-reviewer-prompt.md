@@ -1,62 +1,61 @@
 # Spec Compliance Reviewer Prompt Template
 
-Use this template when dispatching a spec compliance reviewer subagent.
+Use this template as the prompt body when dispatching a spec compliance reviewer subagent. Fill in the placeholders before sending it.
 
 **Purpose:** Verify implementer built what was requested (nothing more, nothing less)
 
-```
-Task tool (general-purpose):
-  description: "Review spec compliance for Issue #{ISSUE_NUMBER}: {ISSUE_TITLE}"
-  prompt: |
-    You are reviewing whether an implementation matches the acceptance criteria
-    for GitHub Issue #{ISSUE_NUMBER}: {ISSUE_TITLE}
+**Suggested task title:** `Review spec compliance for Issue #{ISSUE_NUMBER}: {ISSUE_TITLE}`
 
-    ## Acceptance Criteria
+```text
+You are reviewing whether an implementation matches the acceptance criteria
+for GitHub Issue #{ISSUE_NUMBER}: {ISSUE_TITLE}
 
-    {ACCEPTANCE CRITERIA from the issue body — paste here}
+## Acceptance Criteria
 
-    ## What Implementer Claims They Built
+{ACCEPTANCE CRITERIA from the issue body — paste here}
 
-    [From implementer's report]
+## What Implementer Claims They Built
 
-    ## CRITICAL: Do Not Trust the Report
+[From implementer's report]
 
-    The implementer finished suspiciously quickly. Their report may be incomplete,
-    inaccurate, or optimistic. You MUST verify everything independently.
+## CRITICAL: Do Not Trust the Report
 
-    **DO NOT:**
-    - Take their word for what they implemented
-    - Trust their claims about completeness
-    - Accept their interpretation of requirements
+The implementer finished suspiciously quickly. Their report may be incomplete,
+inaccurate, or optimistic. You MUST verify everything independently.
 
-    **DO:**
-    - Read the actual code they wrote
-    - Compare actual implementation to acceptance criteria line by line
-    - Check for missing pieces they claimed to implement
-    - Look for extra features they didn't mention
+**DO NOT:**
+- Take their word for what they implemented
+- Trust their claims about completeness
+- Accept their interpretation of requirements
 
-    ## Your Job
+**DO:**
+- Read the actual code they wrote
+- Compare actual implementation to acceptance criteria line by line
+- Check for missing pieces they claimed to implement
+- Look for extra features they didn't mention
 
-    Read the implementation code and verify:
+## Your Job
 
-    **Missing requirements:**
-    - Did they satisfy every acceptance criterion?
-    - Are there criteria they skipped or missed?
-    - Did they claim something works but didn't actually implement it?
+Read the implementation code and verify:
 
-    **Extra/unneeded work:**
-    - Did they build things that weren't in the acceptance criteria?
-    - Did they over-engineer or add unnecessary features?
-    - Did they add "nice to haves" that weren't requested?
+**Missing requirements:**
+- Did they satisfy every acceptance criterion?
+- Are there criteria they skipped or missed?
+- Did they claim something works but didn't actually implement it?
 
-    **Misunderstandings:**
-    - Did they interpret acceptance criteria differently than intended?
-    - Did they solve the wrong problem?
-    - Did they implement the right feature but wrong way?
+**Extra/unneeded work:**
+- Did they build things that weren't in the acceptance criteria?
+- Did they over-engineer or add unnecessary features?
+- Did they add "nice to haves" that weren't requested?
 
-    **Verify by reading code, not by trusting report.**
+**Misunderstandings:**
+- Did they interpret acceptance criteria differently than intended?
+- Did they solve the wrong problem?
+- Did they implement the right feature but wrong way?
 
-    Report:
-    - ✅ Spec compliant (if all acceptance criteria are met after code inspection)
-    - ❌ Issues found: [list specifically what's missing or extra, with file:line references]
+**Verify by reading code, not by trusting report.**
+
+Report:
+- ✅ Spec compliant (if all acceptance criteria are met after code inspection)
+- ❌ Issues found: [list specifically what's missing or extra, with file:line references]
 ```

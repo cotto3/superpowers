@@ -7,7 +7,7 @@ description: Applies the repo's skill-selection rules before work begins. Use at
 
 **Invoke relevant skills BEFORE any response or action — including clarifying questions.** Even a 1% chance a skill applies means invoke it. If it turns out to be wrong, you don't need to follow it.
 
-Use the `Skill` tool to invoke skills. Never use the Read tool on skill files.
+Use the skill-loading mechanism available in your environment (e.g., the Skill tool in Claude Code). If no dedicated activation mechanism exists, read the relevant SKILL.md directly.
 
 ## Priority
 

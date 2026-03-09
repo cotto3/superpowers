@@ -55,7 +55,7 @@ The entire skill creation process follows RED-GREEN-REFACTOR.
 **Don't create for:**
 - One-off solutions
 - Standard practices well-documented elsewhere
-- Project-specific conventions (put in CLAUDE.md)
+- Project-specific conventions (put in the repo instruction file, such as `AGENTS.md` or `CLAUDE.md`)
 - Mechanical constraints (if it's enforceable with regex/validation, automate it—save documentation for judgment calls)
 
 ## Skill Types
@@ -143,7 +143,7 @@ Descriptions are the primary trigger surface for a skill. Write them for discove
 
 - Say what the skill helps with
 - Say when to use it, with concrete triggers or symptoms
-- Include the words Codex would search for: errors, tools, domains, file types
+- Include the words the agent would search for: errors, tools, domains, file types
 - Avoid turning frontmatter into a step-by-step workflow summary
 - Keep the description compact enough to scan quickly
 
@@ -349,7 +349,7 @@ Deploying untested skills = deploying untested code. It's a violation of quality
 
 ## Skill Creation Checklist (TDD Adapted)
 
-**IMPORTANT: Use TodoWrite to create todos for EACH checklist item below.**
+**IMPORTANT: Use your environment's todo or task-tracking mechanism for EACH checklist item below.**
 
 **RED Phase - Write Failing Test:**
 - [ ] Create pressure scenarios (3+ combined pressures for discipline skills)

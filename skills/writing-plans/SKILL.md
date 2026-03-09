@@ -33,7 +33,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development to implement this plan via GitHub Issues.
+> **For the implementing agent:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development to implement this plan via GitHub Issues.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -91,7 +91,7 @@ git commit -m "feat: add specific feature"
 - Exact file paths always
 - Complete code in plan (not "add validation")
 - Exact commands with expected output
-- Reference relevant skills with @ syntax
+- Reference relevant skills by name
 - DRY, YAGNI, TDD, frequent commits
 
 ## Execution Handoff

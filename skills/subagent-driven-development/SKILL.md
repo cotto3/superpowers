@@ -31,7 +31,7 @@ The two-stage review (spec compliance → code quality) runs once per issue afte
 ## The Process
 
 **Process summary:**
-1. Verify isolated workspace → fetch issues → create TodoWrite
+1. Verify isolated workspace → fetch issues → create a todo list
 2. Per issue: read → assess complexity → dispatch 1 or more implementer subagents
 3. Per issue: spec review (loop until ✅) → code quality review (loop until ✅) → mark complete
 4. After all issues: final code review → `finishing-a-development-branch`
@@ -41,7 +41,7 @@ The two-stage review (spec compliance → code quality) runs once per issue afte
 1. If not already in an isolated workspace, use **superpowers:using-git-worktrees** before making code changes. Do not start implementation directly on `main`/`master` unless the user explicitly wants that.
 2. Fetch all open issues for implementation: `gh issue list --label <label> --state open --json number,title,body` — the label was set by the writing-plans skill when creating issues (e.g., `offline-caching`). If you don't know the label, ask the user or check recently created issues.
 3. Order by dependency (if noted in issue bodies), otherwise by issue number
-4. Create TodoWrite with one entry per issue
+4. Create a todo list with one entry per issue using the task tracker available in your environment
 
 ## Per Issue
 
@@ -102,9 +102,10 @@ After all issues are implemented:
 
 ## Prompt Templates
 
-- `./implementer-from-issue-prompt.md` - Dispatch implementer subagent for a GitHub issue (or sub-task within one)
-- `./spec-reviewer-prompt.md` - Dispatch spec compliance reviewer subagent
-- `./code-quality-reviewer-prompt.md` - Dispatch code quality reviewer subagent
+- These files are prompt templates, not wrappers around a specific agent API.
+- `./implementer-from-issue-prompt.md` - Use as the prompt body for an implementer subagent for a GitHub issue (or sub-task within one)
+- `./spec-reviewer-prompt.md` - Use as the prompt body for a spec compliance reviewer subagent
+- `./code-quality-reviewer-prompt.md` - Use to build the prompt body for a code quality reviewer subagent
 
 ## Example: Simple Issue (1 Subagent)
 
@@ -183,7 +184,7 @@ Code reviewer: ✅ Approved
 ```
 [Fetch issues: gh issue list --label "offline-support" --state open]
 [Found 2 issues: #142 (offline caching), #143 (offline error handling)]
-[Create TodoWrite with 2 issues]
+[Create todo list with 2 issues]
 
 Issue #142: Add offline caching for goals
 [Complex — 3 sub-tasks, see example above]

@@ -31,7 +31,7 @@ HEAD_SHA=$(git rev-parse HEAD)
 
 **2. Dispatch the code review subagent:**
 
-Use the task or agent-dispatch tool available in your environment with `requesting-code-review/code-reviewer.md` as the prompt template.
+Use your environment's subagent or task-dispatch mechanism with `requesting-code-review/code-reviewer.md` as the prompt template.
 
 **Placeholders:**
 - `{WHAT_WAS_IMPLEMENTED}` - What you just built

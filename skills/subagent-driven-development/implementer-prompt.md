@@ -1,78 +1,77 @@
 # Implementer Subagent Prompt Template
 
-Use this template when dispatching an implementer subagent.
+Use this template as the prompt body when dispatching an implementer subagent. Fill in the placeholders before sending it.
 
-```
-Task tool (general-purpose):
-  description: "Implement Task N: [task name]"
-  prompt: |
-    You are implementing Task N: [task name]
+**Suggested task title:** `Implement Task N: [task name]`
 
-    ## Task Description
+```text
+You are implementing Task N: [task name]
 
-    [FULL TEXT of task from plan - paste it here, don't make subagent read file]
+## Task Description
 
-    ## Context
+[FULL TEXT of task from plan - paste it here, don't make subagent read file]
 
-    [Scene-setting: where this fits, dependencies, architectural context]
+## Context
 
-    ## Before You Begin
+[Scene-setting: where this fits, dependencies, architectural context]
 
-    If you have questions about:
-    - The requirements or acceptance criteria
-    - The approach or implementation strategy
-    - Dependencies or assumptions
-    - Anything unclear in the task description
+## Before You Begin
 
-    **Ask them now.** Raise any concerns before starting work.
+If you have questions about:
+- The requirements or acceptance criteria
+- The approach or implementation strategy
+- Dependencies or assumptions
+- Anything unclear in the task description
 
-    ## Your Job
+**Ask them now.** Raise any concerns before starting work.
 
-    Once you're clear on requirements:
-    1. Implement exactly what the task specifies
-    2. Write tests (following TDD if task says to)
-    3. Verify implementation works
-    4. Commit your work
-    5. Self-review (see below)
-    6. Report back
+## Your Job
 
-    Work from: [directory]
+Once you're clear on requirements:
+1. Implement exactly what the task specifies
+2. Write tests (following TDD if task says to)
+3. Verify implementation works
+4. Commit your work
+5. Self-review (see below)
+6. Report back
 
-    **While you work:** If you encounter something unexpected or unclear, **ask questions**.
-    It's always OK to pause and clarify. Don't guess or make assumptions.
+Work from: [directory]
 
-    ## Before Reporting Back: Self-Review
+**While you work:** If you encounter something unexpected or unclear, **ask questions**.
+It's always OK to pause and clarify. Don't guess or make assumptions.
 
-    Review your work with fresh eyes. Ask yourself:
+## Before Reporting Back: Self-Review
 
-    **Completeness:**
-    - Did I fully implement everything in the spec?
-    - Did I miss any requirements?
-    - Are there edge cases I didn't handle?
+Review your work with fresh eyes. Ask yourself:
 
-    **Quality:**
-    - Is this my best work?
-    - Are names clear and accurate (match what things do, not how they work)?
-    - Is the code clean and maintainable?
+**Completeness:**
+- Did I fully implement everything in the spec?
+- Did I miss any requirements?
+- Are there edge cases I didn't handle?
 
-    **Discipline:**
-    - Did I avoid overbuilding (YAGNI)?
-    - Did I only build what was requested?
-    - Did I follow existing patterns in the codebase?
+**Quality:**
+- Is this my best work?
+- Are names clear and accurate (match what things do, not how they work)?
+- Is the code clean and maintainable?
 
-    **Testing:**
-    - Do tests actually verify behavior (not just mock behavior)?
-    - Did I follow TDD if required?
-    - Are tests comprehensive?
+**Discipline:**
+- Did I avoid overbuilding (YAGNI)?
+- Did I only build what was requested?
+- Did I follow existing patterns in the codebase?
 
-    If you find issues during self-review, fix them now before reporting.
+**Testing:**
+- Do tests actually verify behavior (not just mock behavior)?
+- Did I follow TDD if required?
+- Are tests comprehensive?
 
-    ## Report Format
+If you find issues during self-review, fix them now before reporting.
 
-    When done, report:
-    - What you implemented
-    - What you tested and test results
-    - Files changed
-    - Self-review findings (if any)
-    - Any issues or concerns
+## Report Format
+
+When done, report:
+- What you implemented
+- What you tested and test results
+- Files changed
+- Self-review findings (if any)
+- Any issues or concerns
 ```
