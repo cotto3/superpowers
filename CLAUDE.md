@@ -5,8 +5,9 @@ This is a fork of [obra/superpowers](https://github.com/obra/superpowers) with G
 ## Edit Workflow
 
 1. Edit skill files in this repo (e.g., `skills/writing-plans/SKILL.md`)
-2. Commit and push to origin (`cotto3/superpowers`)
-3. In Claude Code, run `/plugin marketplace update cotto3-superpowers` to pull changes
+2. Bump `version` in **both** `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` (use semver patch bump, e.g., `4.3.2` → `4.3.3`)
+3. Commit and push to origin (`cotto3/superpowers`)
+4. In Claude Code, run `/plugin update superpowers@superpowers-dev` to pull the new version
 
 ## Pulling Upstream Updates
 
@@ -34,3 +35,4 @@ Files modified from upstream:
 - `skills/subagent-driven-development/SKILL.md` — removed upstream plan-file-based mode. Unified around GitHub Issues with adaptive subagent count: reads each issue, assesses complexity, dispatches 1 or multiple subagents accordingly. Two-stage review per issue, commits reference issue numbers, PR body includes `Closes #N`.
 - `skills/subagent-driven-development/implementer-from-issue-prompt.md` — new prompt template for issue-aware implementer subagents (replaces `implementer-prompt.md` usage)
 - `skills/finishing-a-development-branch/SKILL.md` — Option 2 (Create PR) now includes `Closes #N` for each implemented issue
+- `skills/using-superpowers/SKILL.md` — slimmed from ~1,200 to ~250 tokens; removed redundant rationalization table, unrenderable Graphviz diagram, and triple-repeated core message
