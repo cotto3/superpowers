@@ -54,14 +54,14 @@ echo ""
 
 echo "Test 2: writing-plans execution handoff..."
 assert_file_contains "$WRITING_PLANS" "Planning can happen in the current workspace" "Planning is allowed outside a worktree"
-assert_file_contains "$WRITING_PLANS" "If not already in a worktree, use \\*\\*superpowers:using-git-worktrees\\*\\*" "writing-plans hands off to worktree setup"
+assert_file_contains "$WRITING_PLANS" "If not already in a worktree, use \\*\\*ottopowers-gh:using-git-worktrees\\*\\*" "writing-plans hands off to worktree setup"
 assert_file_contains "$WRITING_PLANS" "default workflow for the customized GitHub Issues path" "writing-plans documents the default issue-driven path"
 echo ""
 
 echo "Test 3: subagent-driven-development contract..."
-assert_file_contains "$SUBAGENT_DEV" "^description: Use when GitHub issues already exist" "SDD description is trigger-oriented"
+assert_file_contains "$SUBAGENT_DEV" "^description: .*Use when GitHub issues already exist" "SDD description is trigger-oriented"
 assert_file_not_contains "$SUBAGENT_DEV" "^description: .*reads each issue" "SDD description avoids workflow-summary shortcut"
-assert_file_contains "$SUBAGENT_DEV" "If not already in an isolated workspace, use \\*\\*superpowers:using-git-worktrees\\*\\*" "SDD requires isolated workspace before code changes"
+assert_file_contains "$SUBAGENT_DEV" "If not already in an isolated workspace, use \\*\\*ottopowers-gh:using-git-worktrees\\*\\*" "SDD requires isolated workspace before code changes"
 echo ""
 
 echo "Test 4: requesting-code-review alignment..."

@@ -106,7 +106,7 @@ Files modified from upstream:
 1. Edit skill files in this repo (e.g., `skills/writing-plans/SKILL.md`)
 2. Bump `version` in **both** `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` (use semver patch bump, e.g., `4.3.5` → `4.3.6`)
 3. Commit and push to origin (`cotto3/superpowers`)
-4. In Claude Code, run `/plugin update superpowers@superpowers-dev` to pull the new version
+4. In Claude Code, run `/plugin update ottopowers-gh@superpowers-dev` to pull the new version
 
 ## Pulling Upstream Updates
 

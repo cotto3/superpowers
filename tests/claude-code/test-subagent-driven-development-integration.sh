@@ -203,14 +203,14 @@ echo "=== Verification Tests ==="
 echo ""
 
 echo "Test 1: Skills invoked..."
-if { grep -q '"name":"Skill".*"skill":"superpowers:subagent-driven-development"' "$SESSION_FILE" || grep -q 'skills/subagent-driven-development/SKILL.md' "$SESSION_FILE"; }; then
+if { grep -q '"name":"Skill".*"skill":"ottopowers-gh:subagent-driven-development"' "$SESSION_FILE" || grep -q 'skills/subagent-driven-development/SKILL.md' "$SESSION_FILE"; }; then
     echo "  [PASS] subagent-driven-development skill was invoked"
 else
     echo "  [FAIL] subagent-driven-development skill was not invoked"
     FAILED=$((FAILED + 1))
 fi
 
-if { grep -q '"name":"Skill".*"skill":"superpowers:using-git-worktrees"' "$SESSION_FILE" || grep -q 'skills/using-git-worktrees/SKILL.md' "$SESSION_FILE"; }; then
+if { grep -q '"name":"Skill".*"skill":"ottopowers-gh:using-git-worktrees"' "$SESSION_FILE" || grep -q 'skills/using-git-worktrees/SKILL.md' "$SESSION_FILE"; }; then
     echo "  [PASS] using-git-worktrees skill was invoked"
 else
     echo "  [FAIL] using-git-worktrees skill was not invoked"

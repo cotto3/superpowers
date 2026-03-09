@@ -38,7 +38,7 @@ The two-stage review (spec compliance → code quality) runs once per issue afte
 
 ## Setup
 
-1. If not already in an isolated workspace, use **superpowers:using-git-worktrees** before making code changes. Do not start implementation directly on `main`/`master` unless the user explicitly wants that.
+1. If not already in an isolated workspace, use **ottopowers-gh:using-git-worktrees** before making code changes. Do not start implementation directly on `main`/`master` unless the user explicitly wants that.
 2. Fetch all open issues for implementation: `gh issue list --label <label> --state open --json number,title,body` — the label was set by the writing-plans skill when creating issues (e.g., `offline-caching`). If you don't know the label, ask the user or check recently created issues.
 3. Order by dependency (if noted in issue bodies), otherwise by issue number
 4. Create a todo list with one entry per issue using the task tracker available in your environment
@@ -97,7 +97,7 @@ Runs **once per issue**, after all implementation (whether 1 subagent or multipl
 
 After all issues are implemented:
 1. Dispatch final code reviewer for the entire implementation
-2. **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
+2. **REQUIRED SUB-SKILL:** Use ottopowers-gh:finishing-a-development-branch
 3. When creating a PR, include `Closes #<issue-number>` for each issue in the PR body
 
 ## Prompt Templates
@@ -200,7 +200,7 @@ Issue #143: Add offline error handling
 [Dispatch final code reviewer for entire implementation]
 Final reviewer: All requirements met, ready to merge
 
-[Use superpowers:finishing-a-development-branch]
+[Use ottopowers-gh:finishing-a-development-branch]
 [Create PR with body: "Closes #142, Closes #143"]
 
 Done!
@@ -273,13 +273,13 @@ Done!
 ## Integration
 
 **Required workflow skills:**
-- **superpowers:using-git-worktrees** - REQUIRED: Set up isolated workspace before starting
-- **superpowers:writing-plans** - Creates the plan and GitHub issues this skill executes
-- **superpowers:requesting-code-review** - Code review template for reviewer subagents
-- **superpowers:finishing-a-development-branch** - Complete development after all issues
+- **ottopowers-gh:using-git-worktrees** - REQUIRED: Set up isolated workspace before starting
+- **ottopowers-gh:writing-plans** - Creates the plan and GitHub issues this skill executes
+- **ottopowers-gh:requesting-code-review** - Code review template for reviewer subagents
+- **ottopowers-gh:finishing-a-development-branch** - Complete development after all issues
 
 **Subagents should use:**
-- **superpowers:test-driven-development** - Subagents follow TDD for each issue/sub-task
+- **ottopowers-gh:test-driven-development** - Subagents follow TDD for each issue/sub-task
 
 **Alternative workflow (upstream, plan-file based):**
-- **superpowers:executing-plans** - Batch execution from plan files in a separate session (does not use GitHub Issues)
+- **ottopowers-gh:executing-plans** - Batch execution from plan files in a separate session (does not use GitHub Issues)

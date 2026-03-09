@@ -33,7 +33,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For the implementing agent:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development to implement this plan via GitHub Issues.
+> **For the implementing agent:** REQUIRED SUB-SKILL: Use ottopowers-gh:subagent-driven-development to implement this plan via GitHub Issues.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -136,11 +136,11 @@ Each issue should represent a coherent unit of functionality that makes sense on
 
 ### Step 2: Set Up Worktree
 
-If not already in a worktree, use **superpowers:using-git-worktrees** to create an isolated workspace before implementation.
+If not already in a worktree, use **ottopowers-gh:using-git-worktrees** to create an isolated workspace before implementation.
 
 ### Step 3: Implement
 
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
+- **REQUIRED SUB-SKILL:** Use ottopowers-gh:subagent-driven-development
 - Implementation skill reads each issue and decides subagent count based on complexity
 - Two-stage review (spec compliance → code quality) after each issue
 - Subagent commits reference the issue number (e.g., `feat: add caching layer (#142)`)
