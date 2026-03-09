@@ -3,11 +3,17 @@
   "description": "Core skills library for Claude Code: TDD, debugging, collaboration patterns, and proven techniques",
   "version": "4.3.2",
   "author": {
-    "name": "Jesse Vincent",
-    "email": "jesse@fsck.com"
+    "name": "Christian Otto",
+    "url": "https://github.com/cotto3"
   },
-  "homepage": "https://github.com/obra/superpowers",
-  "repository": "https://github.com/obra/superpowers",
+  "contributors": [
+    {
+      "name": "Jesse Vincent",
+      "url": "https://github.com/obra"
+    }
+  ],
+  "homepage": "https://github.com/cotto3/superpowers",
+  "repository": "https://github.com/cotto3/superpowers",
   "license": "MIT",
   "keywords": ["skills", "tdd", "debugging", "collaboration", "best-practices", "workflows"]
 }
